@@ -11,12 +11,12 @@ model Restaurant {
   id                  String     @id @default(uuid())
   name                String
   imageUrl            String
-  address             String
-  city                String
-  state               String
-  zip                 String
-  phone               String
-  website             String
+  address             String?
+  city                String?
+  state               String?
+  zip                 String?
+  phone               String?
+  website             String?
   deliveryFee         Decimal    @db.Decimal(10, 2)
   deliveryTimeMinutes Int
   categories          Category[]
@@ -34,7 +34,7 @@ model Category {
 model Product {
   id                 String     @id @default(uuid())
   name               String
-  description        String
+  description        String     @db.Text
   imageUrl           String
   price              Decimal    @db.Decimal(10, 2)
   discountPercentage Int        @default(0)
