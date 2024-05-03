@@ -1,9 +1,9 @@
-import Image from "next/image";
 import CategoryList from "./_components/category-list";
 import Header from "./_components/header";
 import Search from "./_components/search";
 import ProductList from "./_components/product-list";
 import { db } from "./_lib/prisma";
+import PromoBanner from "./_components/promo-banner";
 
 const Home = async () => {
   const products = await db.product.findMany({
@@ -35,18 +35,19 @@ const Home = async () => {
         <CategoryList />
       </div>
       <div className="px-5 pt-5">
-        <Image
-          src="/images/banner-promo.jpg"
-          width={0}
-          height={0}
-          className="h-auto w-full object-contain"
-          sizes="100vw"
-          quality={100}
-          alt="Banner Promocional"
+        <PromoBanner
+          src={"/images/banner-promo.jpg"}
+          alt="Banner Promocional 1"
         />
       </div>
       <div className="pl-5 pt-6">
         <ProductList title="Pedidos Recomendados" products={products} />
+      </div>
+      <div className="px-5 pt-5">
+        <PromoBanner
+          src={"/images/mid-promo-banner.jpg"}
+          alt="Banner Promocional 2"
+        />
       </div>
     </main>
   );
