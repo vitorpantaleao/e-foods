@@ -1,5 +1,4 @@
 import { ChevronRight } from "lucide-react";
-import { db } from "../_lib/prisma";
 import ProductItem from "./product-item";
 import { Button } from "./ui/button";
 import { Prisma } from "@prisma/client";
@@ -27,7 +26,7 @@ const ProductList = ({ title, products }: ProductListProps) => {
           <ChevronRight size={16} />
         </Button>
       </div>
-      <div className="scrollbar-hide flex gap-4 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+      <div className="scrollbar-hide flex gap-4 overflow-x-scroll pr-5 [&::-webkit-scrollbar]:hidden">
         {products.map((product) => (
           <ProductItem key={product.id} product={product} />
         ))}
