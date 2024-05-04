@@ -48,7 +48,7 @@ const ProductDetails = ({
   };
 
   return (
-    <div className="pb-8">
+    <div className="relative z-20 -mt-6 rounded-tl-3xl rounded-tr-3xl bg-white pb-8">
       <div className="p-5">
         <div className="flex items-center gap-[0.375rem]">
           <div className="relative h-6 w-6">
