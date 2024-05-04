@@ -17,7 +17,7 @@ interface ProductListProps {
   }>[];
 }
 
-const ProductList = async ({ title, products }: ProductListProps) => {
+const ProductList = ({ title, products }: ProductListProps) => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
