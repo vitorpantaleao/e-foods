@@ -134,6 +134,16 @@ const ProductDetails = ({
       <div className="mt-6 space-y-3 pl-5">
         <ProductList title="Sucos" products={aditionalProducts} />
       </div>
+
+      <div className="mt-6 px-5">
+        <Button
+          className="w-full font-semibold"
+          size="lg"
+          onClick={() => alert("Pedido realizado com sucesso!")}
+        >
+          Adicionar à sacola
+        </Button>
+      </div>
     </div>
   );
 };
