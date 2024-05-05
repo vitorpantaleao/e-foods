@@ -42,7 +42,11 @@ const Home = async () => {
         />
       </div>
       <div className="pl-5 pt-6">
-        <ProductList title="Pedidos Recomendados" products={products} />
+        <ProductList
+          title="Pedidos Recomendados"
+          products={products}
+          buttonLink={"/products/recommended"}
+        />
       </div>
       <div className="px-5 pt-5">
         <PromoBanner
