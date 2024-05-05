@@ -104,7 +104,13 @@ const ProductDetails = ({
       </div>
 
       <div className="mt-6 space-y-3 pl-5">
-        <ProductList title="Sucos" products={aditionalProducts} />
+        <ProductList
+          title="Sucos"
+          products={aditionalProducts}
+          buttonLink={
+            "/categories/cf96a91e-f664-42c5-8067-59bc20ee3aa0/products"
+          }
+        />
       </div>
 
       <div className="mt-6 px-5">
