@@ -21,7 +21,7 @@ const Restaurants = () => {
     };
 
     fetchRestaurants();
-  }, [searchParams]);
+  }, [query, searchParams]);
 
   if (!query) {
     return notFound();
