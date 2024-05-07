@@ -1,6 +1,6 @@
 "use client";
 
-import { Prisma, Product } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { ReactNode, createContext, useMemo, useState } from "react";
 import { calculateProductTotalPrice } from "../_helpers/price";
 
@@ -57,6 +57,18 @@ export const CartContext = createContext<ICartContext>({
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<CartProduct[]>([]);
+
+  const subTotal = products.reduce((acc, product) => {
+    return acc + Number(product.price) * product.quantity;
+  }, 0);
+
+  const total =
+    products.reduce((acc, product) => {
+      return acc + calculateProductTotalPrice(product) * product.quantity;
+    }, 0) + Number(products?.[0]?.restaurant?.deliveryFee);
+
+  const totalDiscount =
+    subTotal - total + Number(products?.[0]?.restaurant?.deliveryFee);
 
   const decreaseProductQuantity = (productId: string) => {
     return setProducts((prev) =>
@@ -138,22 +150,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       { ...product, quantity: Number(quantity) },
     ]);
   };
-
-  const subTotal = useMemo(() => {
-    return products.reduce((acc, product) => {
-      return acc + Number(product.price) * product.quantity;
-    }, 0);
-  }, [products]);
-
-  const total = useMemo(() => {
-    return products.reduce((acc, product) => {
-      return (
-        acc + Number(calculateProductTotalPrice(product)) * product.quantity
-      );
-    }, 0);
-  }, [products]);
-
-  const totalDiscount = subTotal - total;
 
   return (
     <CartContext.Provider
