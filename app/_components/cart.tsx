@@ -18,13 +18,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-const Cart = () => {
+interface CartProps {
+  setIsCartOpen: (isOpen: boolean) => void;
+}
+
+const Cart = ({ setIsCartOpen }: CartProps) => {
   const { products, total, subTotal, totalDiscount, clearCart } =
     useContext(CartContext);
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] =
     useState(false);
+
+  const router = useRouter();
 
   const { data } = useSession();
 
@@ -64,6 +72,17 @@ const Cart = () => {
       });
 
       clearCart();
+      setIsCartOpen(false);
+
+      toast("Pedido finalizado com sucesso! 🎉", {
+        description: "Seu pedido foi enviado para o restaurante",
+        action: {
+          label: "Ver pedidos",
+          onClick: () => {
+            router.push("/my-orders");
+          },
+        },
+      });
     } catch (error) {
       console.error(error);
     } finally {
