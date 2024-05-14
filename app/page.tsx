@@ -5,9 +5,10 @@ import ProductList from "./_components/product-list";
 import { db } from "./_lib/prisma";
 import PromoBanner from "./_components/promo-banner";
 import RestaurantList from "./_components/restaurant-list";
+import Link from "next/link";
 
-const Home = async () => {
-  const products = await db.product.findMany({
+const fetch = async () => {
+  const getProducts = db.product.findMany({
     where: {
       discountPercentage: {
         gt: 0,
@@ -21,10 +22,31 @@ const Home = async () => {
         },
       },
     },
-    orderBy: {
-      discountPercentage: "desc",
+  });
+
+  const getBurguersCategory = db.category.findFirst({
+    where: {
+      name: "Hambúrgueres",
     },
   });
+
+  const getPizzasCategory = db.category.findFirst({
+    where: {
+      name: "Pizzas",
+    },
+  });
+
+  const [products, burguersCategory, pizzasCategory] = await Promise.all([
+    getProducts,
+    getBurguersCategory,
+    getPizzasCategory,
+  ]);
+
+  return { products, burguersCategory, pizzasCategory };
+};
+
+const Home = async () => {
+  const { products, burguersCategory, pizzasCategory } = await fetch();
 
   return (
     <main className="pb-6">
@@ -36,10 +58,12 @@ const Home = async () => {
         <CategoryList />
       </div>
       <div className="px-5 pt-5">
-        <PromoBanner
-          src={"/images/banner-promo.jpg"}
-          alt="Banner Promocional 1"
-        />
+        <Link href={`/categories/${pizzasCategory?.id}/products`}>
+          <PromoBanner
+            src={"/images/banner-promo.jpg"}
+            alt="Banner Promocional 1"
+          />
+        </Link>
       </div>
       <div className="pl-5 pt-6">
         <ProductList
@@ -49,10 +73,12 @@ const Home = async () => {
         />
       </div>
       <div className="px-5 pt-5">
-        <PromoBanner
-          src={"/images/mid-promo-banner.jpg"}
-          alt="Banner Promocional 2"
-        />
+        <Link href={`/categories/${burguersCategory?.id}/products`}>
+          <PromoBanner
+            src={"/images/mid-promo-banner.jpg"}
+            alt="Banner Promocional 2"
+          />
+        </Link>
       </div>
       <div className="pl-5 pt-5">
         <RestaurantList title="Restaurantes Recomendados" />
