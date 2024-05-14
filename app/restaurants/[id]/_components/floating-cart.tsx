@@ -12,13 +12,14 @@ import {
 import { CartContext } from "@/app/_context/cart";
 import { formatCurrency } from "@/app/_helpers/price";
 import { Restaurant } from "@prisma/client";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 interface FloatingCartProps {
   restaurant: Pick<Restaurant, "id">;
 }
 
 const FloatingCart = ({ restaurant }: FloatingCartProps) => {
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const { products, total, totalQuantity } = useContext(CartContext);
 
   const restaurantHasProductsOnCart = products.some(
@@ -41,15 +42,15 @@ const FloatingCart = ({ restaurant }: FloatingCartProps) => {
             </span>
           </h3>
         </div>
-        <Sheet>
-          <SheetTrigger>
-            <Button>Ver sacola</Button>
-          </SheetTrigger>
+        <Button onClick={() => setIsCartOpen(true)}>Ver sacola</Button>
+        <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
+          {/* <SheetTrigger>
+          </SheetTrigger> */}
           <SheetContent className="w-[90vw] bg-white">
             <SheetHeader>
               <SheetTitle className="text-left"> Sacola</SheetTitle>
             </SheetHeader>
-            <Cart />
+            <Cart setIsCartOpen={setIsCartOpen} />
           </SheetContent>
         </Sheet>
       </div>
