@@ -12,21 +12,19 @@ import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 
 interface RestaurantItemProps {
-  userId?: string;
   restaurant: Restaurant;
   className?: string;
-  userFavoriteRestaurants?: UserFavoriteRestaurant[];
+  userFavoriteRestaurants: UserFavoriteRestaurant[];
 }
 
 const RestaurantItem = ({
   restaurant,
   className,
-  userId,
   userFavoriteRestaurants,
 }: RestaurantItemProps) => {
   const { data } = useSession();
 
-  const isFavorite = userFavoriteRestaurants?.some(
+  const isFavorite = userFavoriteRestaurants.some(
     (fav) => fav.restaurantId === restaurant.id,
   );
 
@@ -66,11 +64,11 @@ const RestaurantItem = ({
 
         {data?.user.id && (
           <Button
-            variant={"ghost"}
-            className={`absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-gray-700 p-0 ${isFavorite && "bg-primary hover:bg-gray-700"}`}
-            onClick={() => handleFavorites()}
+            size="icon"
+            className={`absolute right-2 top-2 h-7 w-7 rounded-full bg-gray-700 ${isFavorite && "bg-primary hover:bg-gray-700"}`}
+            onClick={handleFavorites}
           >
-            <HeartIcon size={18} className="border-none fill-white" />
+            <HeartIcon size={16} className="fill-white" />
           </Button>
         )}
       </div>
