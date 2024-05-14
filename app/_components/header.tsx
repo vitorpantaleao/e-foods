@@ -36,7 +36,7 @@ const Header = () => {
   return (
     <div className="flex items-center justify-between px-5 pt-6">
       <Link href="/">
-        <Image src="/images/logo.png" alt="logo" width={100} height={30} />
+        <Image src="/images/Logo.png" alt="logo" width={100} height={30} />
       </Link>
 
       <Sheet>
