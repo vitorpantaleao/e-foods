@@ -64,7 +64,7 @@ const RestaurantItem = ({
           <span className="text-xs font-semibold">5.0</span>
         </div>
 
-        {userId && (
+        {data?.user.id && (
           <Button
             variant={"ghost"}
             className={`absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-gray-700 p-0 ${isFavorite && "bg-primary hover:bg-gray-700"}`}
